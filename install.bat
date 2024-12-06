@@ -1,3 +1,4 @@
+timeout /t 20
 echo Installing required Python packages...
 pip install flask flask_login flask-sqlalchemy paho-mqtt
 
