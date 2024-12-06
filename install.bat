@@ -1,9 +1,7 @@
-timeout /t 20
-echo Installing required Python packages...
+@echo on
 pip install flask flask_login flask-sqlalchemy paho-mqtt
-
-echo Cloning the GitHub repository...
-git clone https://github.com/clre20/Earthquake-power-system-2024-Topics.git
-
-echo Installation and download complete!
+timeout /t 5
+powershell -Command "Invoke-WebRequest -Uri https://github.com/clre20/Earthquake-power-system-2024-Topics/archive/refs/heads/main.zip -OutFile Earthquake-power-system-2024-Topics.zip"
+powershell -Command "Expand-Archive -Path Earthquake-power-system-2024-Topics.zip -DestinationPath ."
+del Earthquake-power-system-2024-Topics.zip
 pause
