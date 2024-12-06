@@ -1,0 +1,1 @@
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c C:\Users\C4\Desktop\e2.bat" -Verb RunAs
