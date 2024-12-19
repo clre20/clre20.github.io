@@ -1,4 +1,4 @@
-##### CLRE-20.github.io
+##### clre20.github.io
 
 # CL檔案公開整合系統
 ---
@@ -15,6 +15,5 @@
 
 ---
 ### 常用連結
-CLRE-20網站[[➚]](https://clre20.mcooest.us.kg)
-
-114地震斷電系統專題檔案[[➚]](https://github.com/clre20/Earthquake-power-system-2024-Topics)
+- CLRE-20網站[[➚]](https://clre20.mcooest.us.kg)
+- 114地震斷電系統專題檔案[[➚]](https://github.com/clre20/Earthquake-power-system-2024-Topics)
