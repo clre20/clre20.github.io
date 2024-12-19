@@ -7,7 +7,7 @@
 
 - ## 升學
   - ### 114學年度四技二專技優保送
-    ![image](https://clre20.github.io/news.gif)
+    ![image](https://clre20.github.io/news3030.png)
     ![image](https://github.com/clre20/clre20.github.io/blob/main/news.gif)
     > 1. 114學年度四技二專技優保送入學招生簡章全文.pdf[[➚]](https://clre20.github.io/114學年度四技二專技優保送/114學年度四技二專技優保送入學招生簡章全文.pdf)
     > 
