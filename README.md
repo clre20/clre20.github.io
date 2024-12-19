@@ -17,4 +17,6 @@
 ### 常用連結
 - CLRE-20網站[[➚]](https://clre20.mcooest.us.kg)
 - 114地震斷電系統專題檔案[[➚]](https://github.com/clre20/Earthquake-power-system-2024-Topics)
+
+  
 -# 123
