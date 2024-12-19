@@ -1,4 +1,4 @@
-##### clre20.github.io
+##### https://clre20.github.io
 
 # CL檔案整合系統
 ---
@@ -6,7 +6,7 @@
   - N/A
 
 - ## 升學
-  - ### 114學年度四技二專技優保送 ![new](https://github.com/clre20/clre20.github.io/blob/main/news2020.png)
+  - ### 114學年度四技二專技優保送 ![new](https://github.com/clre20/clre20.github.io/blob/main/news.png)
     > 1. 114學年度四技二專技優保送入學招生簡章全文.pdf[[➚]](https://clre20.github.io/114學年度四技二專技優保送/114學年度四技二專技優保送入學招生簡章全文.pdf)
     > 
     > 2. 校系科(組)、學程資料檔_輔導考生用.xlsx[[➚]](https://clre20.github.io/114學年度四技二專技優保送/校系科(組)、學程資料檔_輔導考生用.xlsx)
