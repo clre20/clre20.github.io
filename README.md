@@ -17,7 +17,7 @@
 ### 常用連結
 - CLRE-20網站[[➚]](https://clre20.mcooest.us.kg)
 - 114地震斷電系統專題檔案[[➚]](https://github.com/clre20/Earthquake-power-system-2024-Topics)
-- 中正高工資訊科圖片[[➚]](https://github.com/clre20/clre20.github.io/blob/main/%E4%B8%AD%E6%AD%A3%E9%AB%98%E5%B7%A5%E8%B3%87%E8%A8%8A%E7%A7%91%E7%A7%91%E7%B6%B2/%E4%B8%AD%E6%AD%A3%E9%AB%98%E5%B7%A5.png)
+- 中正高工資訊科圖片[[➚]](https://data.mcooest.us kg/blob/main/%E4%B8%AD%E6%AD%A3%E9%AB%98%E5%B7%A5%E8%B3%87%E8%A8%8A%E7%A7%91%E7%A7%91%E7%B6%B2/%E4%B8%AD%E6%AD%A3%E9%AB%98%E5%B7%A5.png)
 ---
 ##### mc server
 - mc server執行指令[[➚]](https://github.com/clre20/clre20.github.io/blob/main/mc-server/run.mc.server.cmd)
