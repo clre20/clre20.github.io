@@ -1,0 +1,36 @@
+@echo off
+setlocal enabledelayedexpansion
+
+REM 設定路徑
+set SOURCE_PATH=D:\
+set DEST_PATH=E:\
+set MAX_SIZE_MB=10000 REM 設置容量限制（MB）
+
+REM 生成時間戳
+for /f "tokens=2 delims==" %%i in ('wmic os get localdatetime /value') do set datetime=%%i
+set TIMESTAMP=%datetime:~0,4%-%datetime:~4,2%-%datetime:~6,2%_%datetime:~8,2%-%datetime:~10,2%-%datetime:~12,2%
+
+REM 建立目標文件夾
+if not exist "%DEST_PATH%" (
+    mkdir "%DEST_PATH%"
+)
+
+REM 壓縮檔案
+set ZIP_FILE=%DEST_PATH%%TIMESTAMP%.zip
+7z a -tzip "%ZIP_FILE%" "%SOURCE_PATH%" >nul
+
+REM 計算目標文件夾大小（MB）
+:CheckSize
+set SIZE_MB=0
+for /f "delims=" %%a in ('forfiles /p "%DEST_PATH%" /m *.zip /c "cmd /c if @isdir==FALSE set /a SIZE_MB+=@fsize/1048576"') do set SIZE_MB=%%a
+
+if !SIZE_MB! GTR %MAX_SIZE_MB% (
+    REM 刪除最舊文件
+    for /f "tokens=*" %%f in ('dir /b /o:d "%DEST_PATH%\*.zip"') do (
+        del "%DEST_PATH%\%%f"
+        goto CheckSize
+    )
+)
+
+echo 完成備份與清理操作。
+pause
