@@ -1,0 +1,13 @@
+1.找Windows 產品金鑰
+Win+R鍵 輸入regedit
+找到
+「HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsNT\CurrentVersion\SoftwareProtectionPlatform」
+文件夾。
+雙擊
+BackupProductKeyDefault
+數值資料=序號
+
+2.輸入Windows產品金鑰
+設定>啟用>變更產品金鑰
+
+3.找office

@@ -1,3 +1,0 @@
-cmd win 產品序號
-wmic path softwarelicensingservice get OA3xOriginalProductKey
-https://www.shukun.com.tw/product/view/id/2765
