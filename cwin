@@ -1,0 +1,2 @@
+cmd win 產品序號
+wmic path softwarelicensingservice get OA3xOriginalProductKey
