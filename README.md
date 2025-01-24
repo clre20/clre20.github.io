@@ -17,8 +17,9 @@
 ### 常用連結
 - CLRE-20網站[[➚]](https://clre20.mcooest.us.kg)
 - 114地震斷電系統專題檔案[[➚]](https://github.com/clre20/Earthquake-power-system-2024-Topics)
-- 中正高工資訊科圖片[[➚]](https://data.mcooest.us.kg//中正高工資訊科科網/中正高工.png)
-- 證件照[[jpg]](https://data.mcooest.us.kg/%E8%AD%89%E4%BB%B6%E7%85%A7.jpg)[[zip]](https://data.mcooest.us.kg/%E8%AD%89%E4%BB%B6%E7%85%A7.zip)
+- 中正高工資訊科圖片[[➚]](https://data.mcooest.us.kg/中正高工資訊科科網/中正高工.png)
+- 證件照[[➚jpg]](https://data.mcooest.us.kg/%E8%AD%89%E4%BB%B6%E7%85%A7.jpg)[[➚zip]](https://data.mcooest.us.kg/%E8%AD%89%E4%BB%B6%E7%85%A7.zip)
+- 點餐[[➚]](https://data.mcooest.us.kg/長興食堂/長興食堂.apk)
 
 ---
 ##### mc server
