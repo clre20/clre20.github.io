@@ -8,11 +8,8 @@
 - ## 升學
   - ### 114學年度四技二專技優保送 ![image](https://data.mcooest.us.kg/news3030.png)
     > 1. 114學年度四技二專技優保送入學招生簡章全文.pdf[[➚]](https://data.mcooest.us.kg/114學年度四技二專技優保送/114學年度四技二專技優保送入學招生簡章全文.pdf)
-    > 
     > 2. 校系科(組)、學程資料檔_輔導考生用.xlsx[[➚]](https://data.mcooest.us.kg/114學年度四技二專技優保送/校系科(組)、學程資料檔_輔導考生用.xlsx)
-    > 
     > 3. 其他連結.txt[[➚]](https://data.mcooest.us.kg/114學年度四技二專技優保送/其他連結.txt)
-    >
     > 4. 技優保送作業系統[[➚]](https://www.jctv.ntut.edu.tw/enter42/skill/contents.php?academicYear=114&subId=167)
     > 5. 報名系統[[➚]](https://ent13.jctv.ntut.edu.tw/ExcEnter42/login.aspx)
 
