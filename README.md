@@ -20,6 +20,7 @@
 - 中正高工資訊科圖片[[➚]](https://data.mcooest.us.kg/中正高工資訊科科網/中正高工.png)
 - 證件照[[➚jpg]](https://data.mcooest.us.kg/%E8%AD%89%E4%BB%B6%E7%85%A7.jpg)[[➚zip]](https://data.mcooest.us.kg/%E8%AD%89%E4%BB%B6%E7%85%A7.zip)
 - 點餐[[➚]](https://data.mcooest.us.kg/長興食堂/長興食堂.apk)
+- 網路監視器[[➚]](https://uptime.mcooest.us.kg/dashboard)
 
 ---
 ##### mc server
