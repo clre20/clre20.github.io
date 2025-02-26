@@ -12,6 +12,7 @@
     > 3. 其他連結.txt[[➚]](https://data.mcooest.us.kg/114學年度四技二專技優保送/其他連結.txt)
     > 4. 技優保送作業系統[[➚]](https://www.jctv.ntut.edu.tw/enter42/skill/contents.php?academicYear=114&subId=167)
     > 5. 報名系統[[➚]](https://ent13.jctv.ntut.edu.tw/ExcEnter42/login.aspx)
+    > 6. 資格審查[[➚]](https://ent13.jctv.ntut.edu.tw/Exc_RankQry/login.aspx)
 
 ---
 ### 常用連結
