@@ -26,7 +26,7 @@
 - OneDrive[[➚]](https://onedrive.live.com)
 
 ---
-##### mc server
+##### Minecraft
 - mc server執行指令[[➚]](https://github.com/clre20/clre20.github.io/blob/main/mc-server/run.mc.server.cmd)
 - papermc[[➚]](https://papermc.io/downloads/paper)
 - JDK21[[➚]](https://download.oracle.com/java/23/latest/jdk-23_windows-x64_bin.exe)
