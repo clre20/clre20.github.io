@@ -13,6 +13,7 @@
     > 4. 技優保送作業系統[[➚]](https://www.jctv.ntut.edu.tw/enter42/skill/contents.php?academicYear=114&subId=167)
     > 5. 報名系統[[➚]](https://ent13.jctv.ntut.edu.tw/ExcEnter42/login.aspx)
     > 6. 資格審查[[➚]](https://ent13.jctv.ntut.edu.tw/Exc_RankQry/login.aspx)
+    > 7. 繳款帳號查詢及繳款單列印[[➚]](https://ent13.jctv.ntut.edu.tw/Exc_CredQry/login.aspx)
 
 ---
 ### 常用連結
