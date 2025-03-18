@@ -15,6 +15,7 @@
     > 6. 資格審查[[➚]](https://ent13.jctv.ntut.edu.tw/Exc_RankQry/login.aspx)
     > 7. 繳款帳號查詢及繳款單列印[[➚]](https://ent13.jctv.ntut.edu.tw/Exc_CredQry/login.aspx)
     > 8. 網路登記志願序系統[[➚]](https://ent13.jctv.ntut.edu.tw/ExcWill42/login.aspx)
+    > 9. 分發錄取名單及標準一覽表[[➚]](https://ent13.jctv.ntut.edu.tw/excellenroll/Default.aspx)
 
 ---
 ### 常用連結
