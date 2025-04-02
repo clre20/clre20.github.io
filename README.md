@@ -1,6 +1,7 @@
 ##### https://data.mcooest.us.kg
 
 # CL超連結系統
+[長興食堂](https://do.cp.cloudns.be/%E9%95%B7%E8%88%88%E9%A3%9F%E5%A0%82A2.4.3.apk)
 ---
 - ## 檢定
   - N/A
