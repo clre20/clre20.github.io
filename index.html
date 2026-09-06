@@ -3,270 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CLRE20 // SYSTEM_ROOT</title>
+  <title>clre20</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0e14;
-      --panel-bg: rgba(13, 17, 23, 0.75);
-      --border: #30363d;
-      --accent: #39d353;
-      --accent-dim: rgba(57, 211, 83, 0.15);
-      --cyan: #58a6ff;
-      --text: #c9d1d9;
-      --font-mono: "Fira Code", "Cascadia Code", SFMono-Regular, Consolas, monospace;
+      --bg: #090a0f;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.07);
+      --text-main: #f0f2f5;
+      --text-muted: #7d8590;
+      --accent: #38bdf8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-mono);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      overflow: hidden;
-      position: relative;
+      padding: 100px 24px 60px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    canvas#bg {
+    .wrapper {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* 頂部狀態與自我介紹 */
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .status-pill {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+    }
+
+    p.bio {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* 項目列表區 */
+    .section-title {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Spotlight 卡片效果 */
+    .card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+
+    .card::before {
+      content: "";
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(400px circle at var(--mouse-x, -100px) var(--mouse-y, -100px), rgba(255, 255, 255, 0.06), transparent 80%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       z-index: 1;
     }
 
-    .window {
-      position: relative;
-      z-index: 2;
-      width: min(840px, 92vw);
-      height: 540px;
-      background: var(--panel-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-dim);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .titlebar {
-      height: 38px;
-      background: rgba(22, 27, 34, 0.8);
-      border-bottom: 1px solid var(--border);
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      padding: 0 16px;
-      user-select: none;
-    }
-
-    .dots {
-      display: flex;
       gap: 8px;
     }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dot.red { background: #ff5f56; }
-    .dot.yellow { background: #ffbd2e; }
-    .dot.green { background: #27c93f; }
 
-    .title {
-      flex: 1;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8b949e;
-      letter-spacing: 1px;
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
     }
 
-    .terminal-body {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      font-size: 0.92rem;
-      line-height: 1.6;
+    .arrow {
+      color: var(--text-muted);
+      font-size: 1rem;
+      transition: transform 0.2s ease, color 0.2s ease;
+      z-index: 1;
     }
 
-    .terminal-body::-webkit-scrollbar { width: 6px; }
-    .terminal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-    .output-line { margin-bottom: 6px; }
-    .green { color: var(--accent); }
-    .cyan { color: var(--cyan); }
-    .muted { color: #8b949e; }
-    a.link {
-      color: var(--cyan);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--cyan);
+    .card:hover .arrow {
+      color: var(--text-main);
+      transform: translate(2px, -2px);
     }
-    a.link:hover { text-decoration: underline; }
 
-    .command-line {
+    /* 頁尾微連結 */
+    footer {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      margin-top: 10px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
     }
-    .prompt {
-      color: var(--accent);
-      margin-right: 10px;
-      white-space: nowrap;
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
     }
-    input#cmd {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-family: inherit;
-      font-size: inherit;
+
+    footer a:hover {
+      color: var(--text-main);
     }
   </style>
 </head>
 <body>
-
-  <canvas id="bg"></canvas>
-
-  <div class="window">
-    <div class="titlebar">
-      <div class="dots">
-        <div class="dot red"></div>
-        <div class="dot yellow"></div>
-        <div class="dot green"></div>
+  <div class="wrapper">
+    <header>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>available for builds</span>
       </div>
-      <div class="title">guest@clre20: ~ (interactive shell)</div>
-    </div>
+      <h1>clre20.</h1>
+      <p class="bio">
+        專注於軟體開發、系統實作與網頁實驗。此處存放個人作品展示與開放式原型。
+      </p>
+    </header>
 
-    <div class="terminal-body" id="history">
-      <div class="output-line green">================================================</div>
-      <div class="output-line green">  CLRE20 CORE OS // BUILD 2026.09               </div>
-      <div class="output-line green">================================================</div>
-      <div class="output-line muted">Welcome. Type <span class="cyan">'help'</span> for available operations.</div>
-      <br />
-      <div class="output-line"><span class="cyan">[System]</span> 載入模組完成：已偵測到可掛載空間。</div>
-    </div>
+    <main>
+      <div class="section-title">Directory</div>
+      <div class="list">
+        <!-- 指向倉庫內的 penguin 資料夾 -->
+        <a href="./penguin/" class="card">
+          <div class="card-info">
+            <div class="card-title">Penguin Project</div>
+            <div class="card-desc">展示頁面與互動內容</div>
+          </div>
+          <span class="arrow">↗</span>
+        </a>
 
-    <div class="terminal-body" style="flex:0; padding-top: 0;">
-      <div class="command-line">
-        <span class="prompt">clre20@hub:~$</span>
-        <input type="text" id="cmd" autofocus autocomplete="off" spellcheck="false" />
+        <!-- 外部 GitHub 連結 -->
+        <a href="https://github.com/clre20" target="_blank" rel="noopener noreferrer" class="card">
+          <div class="card-info">
+            <div class="card-title">GitHub Profile</div>
+            <div class="card-desc">查看開源專案與程式碼庫</div>
+          </div>
+          <span class="arrow">↗</span>
+        </a>
       </div>
-    </div>
+    </main>
+
+    <footer>
+      <span>clre20.github.io</span>
+      <div style="display: flex; gap: 16px;">
+        <a href="https://github.com/clre20" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </footer>
   </div>
 
   <script>
-    // Canvas 背景網格粒子特效
-    const canvas = document.getElementById('bg');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    const particles = Array.from({ length: 45 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4
-    }));
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = 'rgba(57, 211, 83, 0.2)';
-      ctx.strokeStyle = 'rgba(48, 54, 61, 0.4)';
-
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        ctx.fillRect(p.x, p.y, 2, 2);
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 130) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        }
+    // 卡片跟隨滑鼠的聚光燈微互動 (Spotlight)
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    // 終端機指令互動邏輯
-    const history = document.getElementById('history');
-    const cmd = document.getElementById('cmd');
-
-    const COMMANDS = {
-      help: () => `
-  支援指令列表：
-    <span class="cyan">projects</span>    - 檢視所有專案與目錄
-    <span class="cyan">open &lt;name&gt;</span> - 進入指定專案 (例如: open penguin)
-    <span class="cyan">about</span>       - 關於本站與站長簡介
-    <span class="cyan">clear</span>       - 清空終端機視窗
-      `,
-      projects: () => `
-  目錄節點狀態：
-  ├── <a class="link" href="./penguin/">penguin/</a>     [線上展示空間]
-  └── <a class="link" href="https://github.com/clre20" target="_blank">github/</a>      [原始碼儲存庫]
-      `,
-      about: () => `
-  <span class="green">clre20</span> - 探索 Web 技術、前端架構與互動原型。
-  目前託管於 GitHub Pages。
-      `,
-      clear: () => {
-        history.innerHTML = '';
-        return '';
-      }
-    };
-
-    cmd.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const input = cmd.value.trim();
-        cmd.value = '';
-
-        if (!input) return;
-
-        // 記錄使用者輸入
-        const line = document.createElement('div');
-        line.className = 'output-line';
-        line.innerHTML = `<span class="prompt">clre20@hub:~$</span> ${input}`;
-        history.appendChild(line);
-
-        // 指令解析
-        const [action, target] = input.split(' ');
-        const resLine = document.createElement('div');
-        resLine.className = 'output-line';
-
-        if (action === 'open') {
-          if (target === 'penguin') {
-            resLine.innerHTML = `<span class="green">[導向中]</span> 正在進入 ./penguin/ ...`;
-            setTimeout(() => window.location.href = './penguin/', 700);
-          } else {
-            resLine.innerHTML = `<span class="muted">找不到目標：${target || ''}。輸入 'projects' 查看可開啟節點。</span>`;
-          }
-        } else if (COMMANDS[action]) {
-          const out = COMMANDS[action]();
-          if (out) resLine.innerHTML = out;
-        } else {
-          resLine.innerHTML = `<span class="muted">未知指令: "${input}"。可輸入 <span class="cyan">'help'</span> 查詢。</span>`;
-        }
-
-        if (action !== 'clear') {
-          history.appendChild(resLine);
-        }
-        history.scrollTop = history.scrollHeight;
-      }
     });
-
-    // 點擊視窗任意處自動聚焦輸入框
-    document.querySelector('.window').addEventListener('click', () => cmd.focus());
   </script>
 </body>
 </html>
