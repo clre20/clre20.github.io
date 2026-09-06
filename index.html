@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>clre20 | Developer & Projects</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    /* 頂部自我介紹 */
+    header {
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      font-family: monospace;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    p.bio {
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* 專案卡片區 */
+    h2 {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .projects-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      display: block;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .card-title {
+      color: var(--accent);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    /* 頁尾連結 */
+    footer {
+      margin-top: 56px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">clre20.github.io</span>
+      <h1>你好，我是 clre20</h1>
+      <p class="bio">這裡是我的個人站點與前端實驗空間，紀錄專案與各式 Web 實作。</p>
+    </header>
+
+    <main>
+      <h2>精選專案</h2>
+      <div class="projects-grid">
+        <!-- 連結到倉庫現有的 penguin 資料夾 -->
+        <a href="./penguin/" class="card">
+          <div class="card-title">Penguin Project ↗</div>
+          <div class="card-desc">探索 penguin 子目錄下的展示頁面與互動內容。</div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">Interactive</span>
+          </div>
+        </a>
+
+        <!-- 預留卡片：替換成其他專案或後續作品 -->
+        <a href="https://github.com/clre20" target="_blank" class="card">
+          <div class="card-title">GitHub 儲存庫 ↗</div>
+          <div class="card-desc">前往個人 GitHub 瀏覽更多公開的程式碼與開源貢獻。</div>
+          <div class="tags">
+            <span class="tag">Open Source</span>
+            <span class="tag">Profile</span>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <span>© 2026 clre20</span>
+      <div style="display: flex; gap: 16px;">
+        <a href="https://github.com/clre20" target="_blank">GitHub</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
