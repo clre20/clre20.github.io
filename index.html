@@ -26,7 +26,7 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 100px 24px 60px;
+      padding: 120px 24px 60px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -38,37 +38,15 @@
       gap: 48px;
     }
 
-    /* 頂部狀態與自我介紹 */
+    /* 頂部自我介紹 */
     header {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .status-pill {
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
+      gap: 12px;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--text-main);
@@ -187,10 +165,6 @@
 <body>
   <div class="wrapper">
     <header>
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        <span>available for builds</span>
-      </div>
       <h1>clre20.</h1>
       <p class="bio">
         專注於軟體開發、系統實作與網頁實驗。此處存放個人作品展示與開放式原型。
