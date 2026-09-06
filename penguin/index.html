@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>極光の幻想鄉 ｜ 首頁</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/server-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #121212;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+        }
+
+        /* 幻燈片背景樣式 */
+        .bg-slideshow {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            overflow: hidden;
+            pointer-events: none;
+            background-color: #121212;
+        }
+
+        .bg-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 2s ease-in-out, transform 10s ease-out;
+        }
+
+        .bg-slide.active {
+            opacity: 0.75; /* 圖片清晰但不過亮，保證文字對比度 */
+            transform: scale(1);
+        }
+
+        .bg-slideshow-overlay {
+            position: absolute;
+            inset: 0;
+            /* 暗色透明層，過濾背景圖片的刺眼強光，維持視覺舒適度 */
+            background: rgba(18, 18, 18, 0.35);
+            z-index: 2;
+        }
+
+        .bg-radial-vignette {
+            position: absolute;
+            inset: 0;
+            /* 經典徑向暗角，弱化邊緣，使中間圖片主體更突出、前景內容更容易閱讀 */
+            background: radial-gradient(circle, rgba(18, 18, 18, 0.1) 0%, rgba(18, 18, 18, 0.6) 100%);
+            z-index: 3;
+        }
+
+        /* 文字防亮色底遮罩，保證 100% 的可讀性 */
+        .text-shadow-hero {
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.95), 0 2px 4px rgba(0, 0, 0, 0.75);
+        }
+
+        /* 統一毛玻璃卡片與按鈕樣式 */
+        .mc-card, .ip-card, .btn-policy {
+            background: rgba(18, 18, 18, 0.12); /* 透明度比頁首/頁尾的 20% 更高，極致透光 */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        color 0.3s ease;
+        }
+
+        /* 統一懸停/移動時的流暢過渡動畫（採用緩出指數曲線 easeOutExpo） */
+        @media (hover: hover) {
+            .mc-card:hover, .ip-card:hover, .btn-policy:hover {
+                transform: translateY(-6px);
+                border-color: rgba(74, 222, 128, 0.35); /* 統一使用極光綠微光外框 */
+                background-color: rgba(18, 18, 18, 0.22); /* 懸停時僅稍微變厚，絕不過白，保持透光與深色質感 */
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            }
+            .btn-policy:hover {
+                color: #4caf50;
+            }
+        }
+
+        /* 統一手機端/觸控時的點擊按壓物理回饋 (Active States) */
+        .mc-card:active, .ip-card:active, .btn-policy:active {
+            transform: translateY(-3px) scale(0.97); /* 點擊時微幅下壓與縮小，具備實體按鈕回饋感 */
+            border-color: rgba(74, 222, 128, 0.45);
+            background-color: rgba(18, 18, 18, 0.25);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+        }
+        .btn-policy:active {
+            color: #4caf50;
+        }
+
+        .btn-policy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+
+        /* Discord 專用樣式（結合 Discord 品牌色與暗色毛玻璃） */
+        .discord-section {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.08) 0%, rgba(18, 18, 18, 0.12) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(88, 101, 242, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            transition: all 0.3s;
+        }
+
+        .btn-discord:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
+        }
+
+        /* 手機版選單動畫 */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-100%);
+        }
+        #mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        /* 漢堡選單動畫 */
+        .menu-bar {
+            background-color: #ffffff;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, background-color 0.3s ease;
+        }
+
+        #menu-btn.active .menu-bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        #menu-btn.active .menu-bar:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-8px);
+        }
+
+        #menu-btn.active .menu-bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- 網頁背景幻燈片 -->
+    <div id="bg-slideshow" class="bg-slideshow">
+        <div class="bg-slideshow-overlay"></div>
+        <div class="bg-radial-vignette"></div>
+    </div>
+
+    <!-- 導航欄 -->
+    <nav class="sticky top-0 z-[100] bg-black/20 backdrop-blur-md border-b border-white/5 px-4 md:px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i data-lucide="sparkles" class="text-green-500"></i>
+                <span class="text-xl font-bold tracking-wider text-white">極光の幻想鄉 <span class="text-green-500 text-sm hidden md:inline">Aurora Fantasy</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="/" class="hover:text-green-400 transition text-gray-200">首頁</a>
+                <a href="/teaching" class="hover:text-green-400 transition text-gray-200">教學</a>
+                <a href="/terms" class="hover:text-green-400 transition text-gray-200">服務條款</a>
+                <a href="/privacy" class="hover:text-green-400 transition text-gray-200">隱私政策</a>
+                <a href="https://discord.gg/MnUGNx83B2" target="_blank" class="flex items-center space-x-1 text-[#5865F2] hover:text-white transition">
+                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                    <span>Discord</span>
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden flex flex-col justify-between w-6 h-[18px] p-0 group focus:outline-none relative z-[101]" onclick="toggleMenu()" aria-label="切換選單">
+                <span class="menu-bar w-full h-[2px] rounded"></span>
+                <span class="menu-bar w-full h-[2px] rounded"></span>
+                <span class="menu-bar w-full h-[2px] rounded"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 手機版下拉選單 -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-[#121212]/95 backdrop-blur-lg z-[90] md:hidden border-b border-white/10 pt-20 pb-6 px-6 shadow-2xl">
+        <div class="flex flex-col space-y-4 text-center">
+            <a href="/" class="text-lg py-2 border-b border-white/5 text-green-40" onclick="toggleMenu()">首頁</a>
+            <a href="/teaching" class="text-lg py-2 border-b border-white/5 text-gray-200" onclick="toggleMenu()">教學</a>
+            <a href="/terms" class="text-lg py-2 border-b border-white/5 text-gray-200" onclick="toggleMenu()">服務條款</a>
+            <a href="/privacy" class="text-lg py-2 border-b border-white/5 text-gray-200" onclick="toggleMenu()">隱私政策</a>
+            <a href="https://discord.gg/MnUGNx83B2" target="_blank" class="text-lg py-2 text-[#5865F2]" onclick="toggleMenu()">Discord 社群</a>
+        </div>
+    </div>
+
+    <!-- 選單開啟時的霧化背景遮罩 -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[85] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" onclick="toggleMenu()"></div>
+
+    <!-- Hero 區塊 -->
+    <header class="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-24 pb-12">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/3 z-10"></div>
+        <div class="text-center z-20 px-6 w-full">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 text-white text-shadow-hero tracking-tight">開啟你的冒險之旅</h1>
+            <p class="text-base sm:text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed text-shadow-hero">
+                歡迎來到極光の幻想鄉。無論你是想在雲端挑戰、在原野生存，或是建立萬人國家，這裡都能滿足你的幻想。
+            </p>
+            
+            <!-- IP 顯示區塊 -->
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Java IP -->
+                <div class="ip-card p-5 rounded-2xl flex flex-col items-center justify-between cursor-pointer group" onclick="copyText('play.yucl.qzz.io', 'Java 版位址')">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <i data-lucide="monitor" class="text-green-400 w-5 h-5"></i>
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Java Edition</span>
+                    </div>
+                    <span class="font-mono text-white text-lg mb-2">play.yucl.qzz.io</span>
+                    <div class="flex items-center text-[10px] text-gray-500 group-hover:text-green-400 transition">
+                        <i data-lucide="copy" class="w-3 h-3 mr-1"></i> 點擊複製位址
+                    </div>
+                </div>
+
+                <!-- Bedrock IP -->
+                <div class="ip-card p-5 rounded-2xl flex flex-col items-center justify-between cursor-pointer group" onclick="copyText('play.yucl.qzz.io:52019', '基岩版連線資訊')">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <i data-lucide="smartphone" class="text-blue-400 w-5 h-5"></i>
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Bedrock / BE</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="font-mono text-white text-lg">play.yucl.qzz.io</span>
+                        <span class="text-blue-400 font-mono text-sm">Port: 52019</span>
+                    </div>
+                    <div class="flex items-center text-[10px] text-gray-500 group-hover:text-blue-400 transition mt-2">
+                        <i data-lucide="copy" class="w-3 h-3 mr-1"></i> 點擊複製資訊
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 消除交界色差的過渡漸層，保留邊界微黑 -->
+    <div class="w-full h-8 bg-gradient-to-b from-black/3 to-transparent pointer-events-none relative z-10 -mb-8"></div>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+
+        <!-- Discord 社群區塊 -->
+        <section id="discord" class="mb-24">
+            <div class="discord-section rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">加入我們的 Discord</h2>
+                    <p class="text-gray-300">獲取最新公告、尋找隊友、並與管理團隊即時溝通。</p>
+                </div>
+                <a href="https://discord.gg/MnUGNx83B2" target="_blank" class="btn-discord px-8 py-4 rounded-2xl text-white font-bold text-lg flex items-center gap-3 whitespace-nowrap shadow-xl">
+                    <i data-lucide="message-square" class="w-6 h-6"></i>
+                    立即加入社群
+                </a>
+            </div>
+        </section>
+
+        <!-- 遊戲模式介紹 -->
+        <section id="getting-started" class="mb-24">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">新手入門指南</h2>
+                <p class="text-gray-400 text-base sm:text-lg">快速了解伺服器的核心玩法與系統</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- 空島生存 -->
+                <div class="mc-card p-6 sm:p-8 rounded-2xl flex flex-col">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 text-blue-400"><i data-lucide="cloud" class="w-6 h-6 sm:w-7 sm:h-7"></i></div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">空島生存</h3>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed">挑戰極限資源管理！從一個島開始發展，輸入 <code class="text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">/is</code> 創建你的島嶼。</p>
+                </div>
+                <!-- 原味生存 -->
+                <div class="mc-card p-6 sm:p-8 rounded-2xl flex flex-col">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 text-green-400"><i data-lucide="trees" class="w-6 h-6 sm:w-7 sm:h-7"></i></div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">原味生存</h3>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed">回歸經典！寬廣的生存地圖，輸入 <code class="text-green-400 bg-green-500/10 px-2 py-0.5 rounded">/rtp</code> 尋找世外桃源。</p>
+                </div>
+                <!-- 每日簽到 -->
+                <div class="mc-card p-6 sm:p-8 rounded-2xl flex flex-col">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 text-amber-400"><i data-lucide="calendar-days" class="w-6 h-6 sm:w-7 sm:h-7"></i></div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">每日簽到</h3>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed">累積登入獎勵更豐富！輸入 <code class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">/signin</code> 每日領取獎勵。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 規章制度按鈕區 -->
+        <section id="rules" class="mb-32 py-16 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">規章條款</h2>
+            <p class="text-gray-400 mb-10 text-base sm:text-lg">請詳閱並遵守我們的社群守則</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-2xl mx-auto px-4">
+                <a href="/terms" class="btn-policy w-full sm:flex-1 py-5">
+                    <i data-lucide="scroll-text" class="w-6 h-6"></i>
+                    <span>服務條款</span>
+                </a>
+                <a href="/privacy" class="btn-policy w-full sm:flex-1 py-5">
+                    <i data-lucide="eye-off" class="w-6 h-6"></i>
+                    <span>隱私政策</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 py-16 px-6 bg-black/20 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                <div class="flex items-center space-x-2 mb-4">
+                    <i data-lucide="sparkles" class="text-green-500"></i>
+                    <span class="text-2xl font-bold tracking-wider text-white">極光の幻想鄉</span>
+                </div>
+                <p class="text-gray-500 text-sm">© 2026 極光の幻想鄉 與 Mojang AB 無關。</p>
+                <p class="text-gray-500 text-sm">Copyright © 2026 極光の幻想鄉.</br> Created with <a href="https://www.yucl.qzz.io/" class="text-teal-400 hover:underline">YuCl線上工具</a>.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-x-12 gap-y-4 text-center sm:text-left text-sm font-medium text-gray-500">
+                <a href="/" class="hover:text-green-400 transition text-gray-200">首頁</a>
+                <a href="/teaching" class="hover:text-green-400 transition text-gray-200">教學</a>
+                <a href="/terms" class="hover:text-green-400 transition text-gray-200">服務條款</a>
+                <a href="/privacy" class="hover:text-green-400 transition text-gray-200">隱私政策</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 提示框 -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-black/65 backdrop-blur-md text-slate-100 px-6 py-3.5 rounded-2xl border border-white/10 shadow-2xl transition-all opacity-0 pointer-events-none z-[110] transform translate-y-4 font-medium whitespace-nowrap flex items-center gap-2">
+        <i data-lucide="check" class="w-4 h-4 text-green-400"></i>
+        <span id="toast-text">已複製！</span>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // 伺服器大廳背景圖片幻燈片輪播邏輯 - 完美預載入方案（解決突然出現與逐步載入問題）
+        const lobbyImages = [
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby1-19.25.56.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby2-19.36.53.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby3-19.36.27.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby4-19.28.15.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby5-19.31.00.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby6-19.33.14.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby7-19.33.45.png',
+            'https://raw.githubusercontent.com/clre20/pg/refs/heads/main/static/lobby/lobby8-19.35.52.png'
+        ];
+
+        const slideshowContainer = document.getElementById('bg-slideshow');
+        const slides = [];
+
+        // 1. 立即在 DOM 中建立所有幻燈片容器（此時無背景圖，且 opacity 為 0，避免佔頻寬與出現加載條）
+        lobbyImages.forEach(() => {
+            const slide = document.createElement('div');
+            slide.className = 'bg-slide';
+            slideshowContainer.appendChild(slide);
+            slides.push(slide);
+        });
+
+        // 圖片預載入 Promise 包裝器
+        function preloadImage(imagePath) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = encodeURI(imagePath);
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false); // 失敗也 resolve，防卡死
+            });
+        }
+
+        async function initSlideshow() {
+            // 2. 先預載入第一張背景
+            await preloadImage(lobbyImages[0]);
+            
+            // 下載完畢後，寫入背景圖
+            slides[0].style.backgroundImage = `url('${encodeURI(lobbyImages[0])}')`;
+            
+            // 使用 setTimeout 確保 DOM 渲染佇列更新，從而流暢觸發 0 ➔ 0.75 的 CSS 淡入過渡動畫
+            setTimeout(() => {
+                slides[0].classList.add('active');
+            }, 50);
+
+            // 3. 在背景依序非同步載入其餘圖片
+            lobbyImages.forEach((imagePath, index) => {
+                if (index === 0) return;
+                preloadImage(imagePath).then(() => {
+                    // 下載成功後，才寫入對應的背景圖屬性，此時圖片已進入瀏覽器快取
+                    slides[index].style.backgroundImage = `url('${encodeURI(imagePath)}')`;
+                });
+            });
+
+            // 4. 開始自動輪播
+            let currentSlideIndex = 0;
+            const intervalTime = 7000; // 每 7 秒切換一次
+
+            setInterval(() => {
+                const nextIndex = (currentSlideIndex + 1) % slides.length;
+                
+                // 安全檢查：只有在下一張圖片已經「完全下載完畢」（即 style.backgroundImage 有值）時才進行輪播切換
+                if (slides[nextIndex].style.backgroundImage) {
+                    slides[currentSlideIndex].classList.remove('active');
+                    currentSlideIndex = nextIndex;
+                    slides[currentSlideIndex].classList.add('active');
+                }
+                // 若網路慢下一張還沒載完，則在此週期維持當前圖片，保證絕對不顯示破圖或空白
+            }, intervalTime);
+        }
+
+        initSlideshow();
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('menu-btn');
+            const overlay = document.getElementById('menu-overlay');
+            const isActive = menu.classList.toggle('active');
+            btn.classList.toggle('active');
+            
+            if (isActive) {
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                overlay.classList.remove('opacity-100', 'pointer-events-auto');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function copyText(content, label) {
+            const temp = document.createElement('textarea');
+            temp.value = content;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(`${label} 已複製！`);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.innerText = message || "伺服器位址已複製！";
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, 0)';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 1rem)';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
